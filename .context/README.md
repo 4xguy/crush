@@ -7,4 +7,8 @@ Suggested layout:
 - `sessions/` for per-task context files.
 - `snippets/` for reusable command snippets.
 
-This directory is committed only on the `custom/main` line to avoid leaking into upstream-sync PRs.
+Branch policy:
+- `.context` exists only on `custom/main` (and its feature branches) so it never enters upstream sync PRs.
+- Stay on `custom/main` when editing here; changes will be ignored on `main`/upstream.
+
+Reminder: keep keys out of this folder—use environment variables or a local secrets manager instead.
