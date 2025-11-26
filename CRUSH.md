@@ -1,7 +1,6 @@
 # Crush Development Guide
 
-## Build/Test/Lint Commands
-
+## Build/Test/Lint
 - **Build**: `go build .` or `go run .`
 - **Test**: `task test` or `go test ./...` (run single test: `go test ./internal/llm/prompt -run TestGetContextFromPaths`)
 - **Update Golden Files**: `go test ./... -update` (regenerates .golden files when test output changes)
@@ -70,3 +69,20 @@ func TestYourFunction(t *testing.T) {
 - ALWAYS use semantic commits (`fix:`, `feat:`, `chore:`, `refactor:`, `docs:`, `sec:`, etc).
 - Try to keep commits to one line, not including your attribution. Only use
   multi-line commits when additional context is truly necessary.
+
+## Additional Style & Conventions
+- Imports: goimports order (stdlib, external, internal).
+- Formatting: gofumpt enforced via golangci-lint; commit formatted code only.
+- Naming: PascalCase for exported, camelCase for unexported; keep names short and clear.
+- Types: prefer explicit types; small, focused interfaces in consuming packages; use typed consts with iota for enums.
+- Errors: return errors explicitly; wrap with `fmt.Errorf("context: %w", err)`; avoid panics in library code.
+- Context: pass `context.Context` as the first param for I/O or long operations.
+- Structs: group related fields; use embedding for composition; zero values should be usable.
+- JSON: snake_case in `json` tags; omit empty when appropriate.
+- Files/Perms: use octal perms (0o755, 0o644); avoid writing secrets.
+- Tests: use `t.Parallel()` where safe; prefer `require` from testify; use `t.TempDir()` and `t.Setenv()`.
+
+## Tools & Repo Notes
+- Lint config: see `.golangci.yml` (gofumpt, goimports, staticcheck, tparallel, etc.).
+- Schema: `task schema` regenerates `schema.json`.
+- Editor rules: none found for Cursor (`.cursor/`, `.cursorrules`) or Copilot (`.github/copilot-instructions.md`). If added, mirror key guidance here.
