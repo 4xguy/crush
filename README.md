@@ -666,6 +666,12 @@ convention which can be enabled via `export DO_NOT_TRACK=1`.
 
 ## Contributing
 
+### Branch Workflow for This Fork
+- `upstream/main` tracks Charmbracelet’s source repo; `origin/main` mirrors it via the sync workflow in `.github/workflows/sync-upstream.yml`.
+- Our changes live on `custom/main`; create feature branches from `custom/main` and open PRs back into it.
+- Keep `custom/main` rebased on `upstream/main` after each upstream sync. Example: `git checkout custom/main && git rebase upstream/main && git push -f origin custom/main`.
+- Local-only context files go in `.context/` (present only on `custom/main`) to avoid leaking into upstream sync PRs.
+
 See the [contributing guide](https://github.com/charmbracelet/crush?tab=contributing-ov-file#contributing).
 
 ## Whatcha think?
